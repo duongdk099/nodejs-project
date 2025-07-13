@@ -7,7 +7,6 @@ const { authorizeRoles } = require('../middleware/roles');
 
 const router = express.Router();
 
-// Register user
 router.post('/register', async (req, res) => {
   const { nom, email, password, role } = req.body;
   try {
@@ -26,7 +25,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login user
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -48,7 +46,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Protected route example
 router.get('/protected', authenticate, authorizeRoles('super_admin'), (req, res) => {
   res.json({ message: 'Super admin content' });
 });
