@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
+const sallesRoutes = require('./routes/salles');
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,8 @@ mongoose
 
 // Routes
 app.use('/api/auth', authRoutes);
+// Super admin protected routes for salles
+app.use('/api/salles', sallesRoutes);
 
 // Default route
 app.get('/', (req, res) => {
