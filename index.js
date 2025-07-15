@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 
+const rateLimit = require('express-rate-limit');
 const authRoutes = require('./routes/auth');
 const sallesRoutes = require('./routes/salles');
 const sallesProprietaireRoutes = require('./routes/sallesProprietaire');
@@ -15,10 +16,28 @@ const defisRoutes = require('./routes/defis');
 const sessionsRoutes = require('./routes/sessions');
 
 const app = express();
-app.use(helmet());
-app.use(cors());
-app.use(morgan('combined'));
-app.use(express.json());
+
+// Sécurité et middleware
+app.use(helmet()); // Protection des en-têtes HTTP
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*', // Domaines autorisés
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(morgan('combined')); // Journalisation
+
+// Rate limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limite chaque IP à 100 requêtes par fenêtre
+  standardHeaders: true, // Retourne les informations de limite dans les en-têtes `RateLimit-*`
+  legacyHeaders: false, // Désactiver les en-têtes `X-RateLimit-*` 
+  message: { message: 'Trop de requêtes, veuillez réessayer plus tard.' }
+});
+app.use('/api/', apiLimiter);
+
+// Parser pour le JSON
+app.use(express.json({ limit: '10kb' })); // Limite la taille des requêtes JSON
 
 // Connect to MongoDB
 connectDB();
@@ -44,4 +63,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+module.exports = app;
