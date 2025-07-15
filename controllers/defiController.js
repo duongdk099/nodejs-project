@@ -1,7 +1,6 @@
 const Defi = require('../models/defi');
 const User = require('../models/user');
 
-// Create a new Defi (client or proprietaire)
 exports.createDefi = async (req, res) => {
   try {
     const data = {
@@ -17,7 +16,6 @@ exports.createDefi = async (req, res) => {
   }
 };
 
-// List/all defis with optional filters
 exports.listDefis = async (req, res) => {
   try {
     const { difficulte, type, minDuree, maxDuree, page = 1, limit = 10 } = req.query;
@@ -36,7 +34,6 @@ exports.listDefis = async (req, res) => {
   }
 };
 
-// Approve a Defi (super_admin)
 exports.approveDefi = async (req, res) => {
   try {
     const defi = await Defi.findByIdAndUpdate(
@@ -53,7 +50,6 @@ exports.approveDefi = async (req, res) => {
   }
 };
 
-// Delete a Defi (super_admin)
 exports.deleteDefi = async (req, res) => {
   try {
     const deleted = await Defi.findByIdAndDelete(req.params.id);
@@ -64,7 +60,6 @@ exports.deleteDefi = async (req, res) => {
   }
 };
 
-// Update a Defi (super_admin or owner)
 exports.updateDefi = async (req, res) => {
   try {
     const updated = await Defi.findByIdAndUpdate(req.params.id, req.body, { new: true });

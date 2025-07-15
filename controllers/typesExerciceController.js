@@ -1,6 +1,5 @@
 const TypesExercice = require('../models/typesExercice');
 
-// Create a new TypesExercice (super_admin)
 exports.createTypesExercice = async (req, res) => {
   try {
     const te = new TypesExercice(req.body);
@@ -11,7 +10,6 @@ exports.createTypesExercice = async (req, res) => {
   }
 };
 
-// List all TypesExercices (super_admin)
 exports.listTypesExercices = async (req, res) => {
   try {
     const list = await TypesExercice.find();
@@ -21,7 +19,6 @@ exports.listTypesExercices = async (req, res) => {
   }
 };
 
-// Update a TypesExercice (super_admin)
 exports.updateTypesExercice = async (req, res) => {
   try {
     const updated = await TypesExercice.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -32,7 +29,6 @@ exports.updateTypesExercice = async (req, res) => {
   }
 };
 
-// Delete a TypesExercice (super_admin)
 exports.deleteTypesExercice = async (req, res) => {
   try {
     const deleted = await TypesExercice.findByIdAndDelete(req.params.id);

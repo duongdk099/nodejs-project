@@ -1,6 +1,5 @@
 const User = require('../models/user');
 
-// List all users (super_admin)
 exports.listUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -10,7 +9,6 @@ exports.listUsers = async (req, res) => {
   }
 };
 
-// Deactivate a user (super_admin)
 exports.deactivateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -25,7 +23,6 @@ exports.deactivateUser = async (req, res) => {
   }
 };
 
-// Delete a user (super_admin)
 exports.deleteUser = async (req, res) => {
   try {
     const deleted = await User.findByIdAndDelete(req.params.id);

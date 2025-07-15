@@ -1,6 +1,5 @@
 const Session = require('../models/session');
 
-// Create a new session (client)
 exports.createSession = async (req, res) => {
   try {
     const { defi_id, date, calories, stats } = req.body;
@@ -18,7 +17,6 @@ exports.createSession = async (req, res) => {
   }
 };
 
-// List sessions for a user (client)
 exports.listSessions = async (req, res) => {
   try {
     const sessions = await Session.find({ user_id: req.user.id });

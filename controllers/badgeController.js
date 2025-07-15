@@ -1,6 +1,5 @@
 const Badge = require('../models/badge');
 
-// Create a new Badge (super_admin)
 exports.createBadge = async (req, res) => {
   try {
     const badge = new Badge(req.body);
@@ -11,7 +10,6 @@ exports.createBadge = async (req, res) => {
   }
 };
 
-// List all Badges (super_admin)
 exports.listBadges = async (req, res) => {
   try {
     const list = await Badge.find();
@@ -21,7 +19,6 @@ exports.listBadges = async (req, res) => {
   }
 };
 
-// Update a Badge (super_admin)
 exports.updateBadge = async (req, res) => {
   try {
     const updated = await Badge.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -32,7 +29,6 @@ exports.updateBadge = async (req, res) => {
   }
 };
 
-// Delete a Badge (super_admin)
 exports.deleteBadge = async (req, res) => {
   try {
     const deleted = await Badge.findByIdAndDelete(req.params.id);
