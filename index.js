@@ -4,6 +4,13 @@ const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 const sallesRoutes = require('./routes/salles');
+const sallesProprietaireRoutes = require('./routes/sallesProprietaire');
+const typesExercicesRoutes = require('./routes/typesExercices');
+const badgesRoutes = require('./routes/badges');
+const usersRoutes = require('./routes/users');
+const defisRoutes = require('./routes/defis');
+const typesExercicesRoutes = require('./routes/typesExercices');
+const badgesRoutes = require('./routes/badges');
 
 const app = express();
 app.use(express.json());
@@ -22,8 +29,18 @@ mongoose
 
 // Routes
 app.use('/api/auth', authRoutes);
-// Super admin protected routes for salles
+// Super admin protected routes
 app.use('/api/salles', sallesRoutes);
+// Proprietaire_salle routes for salle requests
+app.use('/api/proprietaire/salles', sallesProprietaireRoutes);
+app.use('/api/types-exercices', typesExercicesRoutes);
+app.use('/api/badges', badgesRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/defis', defisRoutes);
+// Routes for TypesExercices
+app.use('/api/types-exercices', typesExercicesRoutes);
+// Routes for Badges
+app.use('/api/badges', badgesRoutes);
 
 // Default route
 app.get('/', (req, res) => {
