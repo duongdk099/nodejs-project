@@ -11,3 +11,5 @@ router.get('/', listSalles);
 router.put('/:id', updateSalle);
 router.delete('/:id', deleteSalle);
 router.put('/:id/approuver', approveSalle);
+
+module.exports = router;
