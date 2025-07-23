@@ -1,6 +1,5 @@
 const Salle = require('../models/salle');
 
-// CRUD opérations pour salles (super_admin)
 exports.createSalle = async (req, res) => {
   try {
     const salle = new Salle(req.body);
